@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  MB_DB_TYPE: "mysql"
+  MB_DB_HOST: "db"
+  MB_DB_PORT: "3306"
+  MB_DB_DBNAME: "metabase"
+  MB_DB_USER: "metabase"
+  MB_JETTY_PORT: "80"

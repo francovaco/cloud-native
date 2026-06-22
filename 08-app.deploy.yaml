@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  labels:
+    app: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      initContainers:
+        - name: wait-for-db
+          image: busybox:1.25.0
+          command:
+            - sh
+            - -c
+            - |
+              until nc -z db 3306; do
+                echo "Esperando MySQL...";
+                sleep 5;
+              done;
+              echo "MySQL disponible"
+      containers:
+        - name: app
+          image: metabase/metabase:v0.52.6
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: app-config
+          env:
+            - name: MB_DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: db-password
+          ports:
+            - name: metabase
+              containerPort: 80
