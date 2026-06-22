@@ -16,8 +16,8 @@ spec:
     spec:
       initContainers:
         - name: remove-lost-found
-          image: busybox:1.25.0
-          imagePullPolicy: IfNotPresent
+          image: busybox:latest
+          imagePullPolicy: Always
           command: ["rm", "-fr", "/var/lib/mysql/lost+found"]
           volumeMounts:
             - name: mysql-data

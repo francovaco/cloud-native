@@ -16,7 +16,8 @@ spec:
     spec:
       initContainers:
         - name: wait-for-db
-          image: busybox:1.25.0
+          image: busybox:latest
+          imagePullPolicy: Always
           command:
             - sh
             - -c
