@@ -26,6 +26,8 @@ spec:
         - name: db
           image: mysql:8
           imagePullPolicy: Always
+          args:
+            - --default-authentication-plugin=mysql_native_password
           env:
             - name: MYSQL_DATABASE
               valueFrom:
